@@ -1,4 +1,4 @@
-# Proyecto de análisis de datos para la empresa  Cyclist
+# Proyecto de análisis de datos para la empresa  Cyclistic
 
 Este análisis explora qué diferencias existen en el uso de las bicicletas Cyclistic entre los ciclistas ocasionales y los miembros
 anuales; para convertir a los ciclistas ocasionales en miembros anuales, utilizando herramientas estadísticas y visualizaciones en R.
@@ -19,7 +19,7 @@ anuales; para convertir a los ciclistas ocasionales en miembros anuales, utiliza
 
 ## Resultados
 
-![Gráfico clave](Analisis_Cyclistic/imagenes/Promedio de horas por dia y tipo de usuario.png)
+Analisis_Cyclistic/imagenes/Promedio de horas por dia y tipo de usuario.png
 
 ## Enlace
 [Ver análisis completo en HTML](https://hlmm7.github.io/Analisis_Cyclistic/Proyecto_cyclistic.html)
