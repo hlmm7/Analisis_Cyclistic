@@ -1,0 +1,434 @@
+---
+title: "Proyecto_Cyclist"
+author: "Hector Mejias"
+date: "2024-07-13"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# **¿Cómo lograr el éxito rápido de un negocio de bicicletas compartidas?**
+
+## **Introducción**
+
+  La empresa Cyclistic necesita diseñar una estrategia de marketing para incrementar la cantidad de membresías anual, debido a esto se realizará un análisis para determinar qué tipo de estrategia de marketing sería la ideal. En este caso se seguirán los pasos del proceso de análisis de datos: preguntar, preparar, procesar, analizar, compartir y actuar. Escenario La directora de marketing de Cyclistic cree que el éxito futuro de la empresa depende de maximizar la cantidad de membresías anuales. Por lo tanto, se busca entender qué diferencias existen en el uso de las bicicletas Cyclistic entre los ciclistas ocasionales y los miembros anuales. A través de estos conocimientos, se diseñará una nueva estrategia de marketing para convertir a los ciclistas ocasionales en miembros anuales. Sin embargo, antes de eso, los ejecutivos de Cyclistic deben aprobar las recomendaciones; por eso, se debe respaldar la propuesta con una visión convincente de los datos y visualizaciones profesionales de los mismos.
+
+## **Equipo**
+
+  **Cyclistic:** Un programa de bicicletas compartidas que incluye 5,800 bicicletas y 600 estaciones. Cyclistic se destaca por ofrecer también bicicletas reclinadas, triciclos manuales y bicicletas de carga que ofrecen un uso más inclusivo de las bicicletas compartidas para las personas con discapacidad y los ciclistas que no pueden utilizar una bicicleta estándar de dos ruedas. La mayoría de los ciclistas eligen las bicicletas tradicionales, alrededor de un 8% de los ciclistas usan las opciones asistidas. Los usuarios de Cyclistic son más propensos a utilizar la bicicleta para recreación, pero alrededor del 30% la utiliza para ir al trabajo cada día. Lily Moreno: La directora de marketing y gerente. Ella es responsable del desarrollo de campañas e iniciativas para promover el programa de bicicletas compartidas. Las campañas pueden incluir correo electrónico, redes sociales y otros canales. Equipo de análisis computacional de datos de marketing de Cyclistic: Un equipo de analistas de datos que se encargan de recopilar, analizar e informar datos que ayudan a conducir la estrategia de marketing de Cyclistic. Equipo ejecutivo de Cyclistic: El equipo ejecutivo, sumamente detallista, decidirá si aprueba el programa de marketing recomendado.
+Acerca de la empresa
+  
+  En 2016, Cyclistic lanzó una exitosa oferta de bicicletas compartidas. Desde entonces, el programa creció hasta alcanzar una flota de 5,824 bicicletas georreferenciadas y bloqueadas en una red de 692 estaciones en toda Chicago. Las bicicletas se pueden desbloquear desde una estación y devolverse en cualquier otra estación del sistema en cualquier momento.
+  
+  Hasta ahora, la estrategia de marketing de Cyclistic se basaba en la construcción de un reconocimiento de marca general y en atraer a amplios segmentos de consumidores. Uno de los enfoques que ayudó a hacer esto posible fue la flexibilidad de sus planes de precios: pases de un solo viaje, pases de un día completo y membresías anuales. A los clientes que compran pases de un solo viaje o pases de un día completo se los llama ciclistas ocasionales. Los clientes que compran membresías anuales se llaman miembros de Cyclistic.
+Preguntar
+
+**¿En qué se diferencian los socios anuales y los ciclistas ocasionales con respecto al uso de las bicicletas de Cyclistic?** 
+Esta es la pregunta que se ha asignado para guiar nuestro análisis, se utilizaran todas las fuentes de datos que se tengan al alcance para responderla.
+
+# **Preparar**
+
+  Se nos ha pedido trabajar con los datos recogidos durante los últimos 12 meses ya que se nos ha pedido realizar el análisis del último año, en nuestro caso, los datos abarcados son de julio del 2023 a junio del 2024. Para revisar la fuente original de los datos revise el siguiente link: <https://divvy-tripdata.s3.amazonaws.com/index.html.> Se utilizarán los datos históricos de los viajes de Cyclistic para analizar e identificar tendencias. A fines de este caso, los conjuntos de datos son apropiados y permitirán responder las preguntas de la empresa. Estos se usaran para explorar cómo difieren los tipos de clientes que usan las bicicletas Cyclistic. Sin embargo, por cuestiones de privacidad de los datos, se prohíbe usar información de identificación personal de los ciclistas.
+Los datos fueron almacenados en una carpeta específica y cargados a Rstudio para su manipulación y análisis, debido a que tienen una gran dimensión como para utilizar hojas de calculo.
+
+  Haciendo una revisión de los datos se determinó que en su gran mayoría los datos que nos interesan están completos, no se encuentra sesgo alguno y son consistentes por lo cuál podemos pasar al siguiente paso. El conjunto de datos proporcionados contienen detalles de cada viaje realizado en bicicleta durante diferentes meses entre 2023 y 2024. En esta parte procederemos a instalar y cargar los paquetes tydeverse, lubridate, pillar, readr y dplyr. Importar los datos, analizar la estructura de los datos con R y unir todo un solo dataframe.
+
+## **Instalar paquetes**
+
+install.packages("tidyverse") #Instala todos los paquetes mas populares en R para analizar datos.
+install.packages("lubridate") #Permite trabajar y manipular datos que representan fechas.
+install.packages("readr")     #Se utiliza para importar archivos de diferentes formatos
+install.packages("dplyr")    
+
+## **Cargar paquetes**
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(readr)
+library(dplyr)
+```
+
+## **Importar datos**
+
+  Primero se definira el nombre de las variables donde se guardaran los datos, para luego importarlos con la función de read.csv(). los datos contienen 12 meses desde julio del 2023 hasta junio del 2024.
+
+```{r}
+jul_2023 <- read.csv("~/Caso practico/Datos csv/202307-divvy-tripdata.csv")
+ago_2023 <- read.csv("~/Caso practico/Datos csv/202308-divvy-tripdata.csv")
+sep_2023 <- read.csv("~/Caso practico/Datos csv/202309-divvy-tripdata.csv")
+oct_2023 <- read.csv("~/Caso practico/Datos csv/202310-divvy-tripdata.csv")
+nov_2023 <- read.csv("~/Caso practico/Datos csv/202311-divvy-tripdata.csv")
+dic_2023 <- read.csv("~/Caso practico/Datos csv/202312-divvy-tripdata.csv")
+ene_2024 <- read.csv("~/Caso practico/Datos csv/202401-divvy-tripdata.csv")
+feb_2024 <- read.csv("~/Caso practico/Datos csv/202402-divvy-tripdata.csv")
+mar_2024 <- read.csv("~/Caso practico/Datos csv/202403-divvy-tripdata.csv")
+abr_2024 <- read.csv("~/Caso practico/Datos csv/202404-divvy-tripdata.csv")
+may_2024 <- read.csv("~/Caso practico/Datos csv/202405-divvy-tripdata.csv")
+jun_2024 <- read.csv("~/Caso practico/Datos csv/202406-divvy-tripdata.csv")
+```
+
+## **Revisar la estructura de los datos**
+
+```{r}
+print("dataframe:jul_2023")
+glimpse(jul_2023)
+print("dataframe:ago_2023")
+glimpse(ago_2023)
+print("dataframe:sep_2023")
+glimpse(sep_2023)
+print("dataframe:oct_2023")
+glimpse(oct_2023)
+print("dataframe:nov_2023")
+glimpse(nov_2023)
+print("dataframe:dic_2023")
+glimpse(dic_2023)
+print("dataframe:ene_2024")
+glimpse(ene_2024)
+print("dataframe:feb_2024")
+glimpse(feb_2024)
+print("dataframe:mar_2024")
+glimpse(mar_2024)
+print("dataframe:abr_2024")
+glimpse(abr_2024)
+print("dataframe:may_2024")
+glimpse(may_2024)
+print("dataframe:jun_2024")
+glimpse(jun_2024)
+```
+
+Los datos constan de 13 columnas las cuáles son las siguientes:
+
+ride_id
+rideable_type
+started_at
+ended_at
+start_station_name
+start_station_id
+end_station_name
+end_station_id
+start_lat
+start_Ing
+end_lat
+end_Ing
+member_casual
+
+## **Unir todo un solo dataframe**
+
+  Las tablas se unirán en un solo dataframe trips_2023_2024 con la función bind_rows(). Esta función combina dataframes con nombres de columnas iguales en una sola tabla.
+
+```{r}
+trips_2023_2024 <- bind_rows(jul_2023, ago_2023, sep_2023, oct_2023, nov_2023, dic_2023,
+                             ene_2024, feb_2024, mar_2024, abr_2024, may_2024, jun_2024)
+
+glimpse(trips_2023_2024)
+```
+
+# **Procesar**
+
+  Se ha unido todo en un solo dataframe , sin embargo existen errores de formateo, es decir, los datos se identificaron con un tipo de dato incorrecto para el análisis y se deben cambiar.
+
+started_at y ended_at deben cambiarse a tipo de dato fecha-hora ya que estas son fechas.
+
+```{r}
+#formateo de datos de las columnas de fechas
+trips_2023_2024$started_at <- ymd_hms(trips_2023_2024$started_at)
+trips_2023_2024$ended_at <- ymd_hms(trips_2023_2024$ended_at)
+```
+
+## **Creacion de nuevas columnas**
+
+```{r}
+#creacion de una nueva columna nueva llamada trip_duration que sera el tiempo que duro cada viaje.
+trip_duration <- as.numeric(difftime(trips_2023_2024$ended_at, trips_2023_2024$started_at))
+
+#combinacion de la nueva columna a la base de datos
+trips_2023_2024 <- data.frame(trips_2023_2024, trip_duration)
+
+glimpse(trips_2023_2024)
+```
+
+# **Limpieza de datos**
+
+```{r}
+#Para revisar si existen Nas en el dataframe
+colSums(is.na(trips_2023_2024))  
+
+# Identificar filas con marcas de tiempo invertidas
+inverted_rows <- trips_2023_2024 %>%
+filter(started_at > ended_at) %>%
+mutate(row_id = row_number()) # Crea una nueva columna con índices de fila
+```
+
+## **Corregir e invertir las filas con marcas de tiempo erroneas** 
+
+```{r}
+corrected_rows <- inverted_rows %>%
+  mutate(
+    ended_at_inverted = ifelse(row_id %in% inverted_rows, as.POSIXct(ended_at), as.POSIXct(started_at)),
+    started_at_inverted = ifelse(row_id %in% inverted_rows, as.POSIXct(started_at), as.POSIXct(ended_at))
+    )
+
+#formatear las filas invertidas para que tengan formato de fecha y hora
+corrected_rows <- corrected_rows %>%
+  mutate(
+    started_at_formatted = as.character(strftime(started_at_inverted, format = "%Y-%m-%d %H:%M:%S")),
+    ended_at_formatted = as.character(strftime(ended_at_inverted, format = "%Y-%m-%d %H:%M:%S"))
+  )
+
+corrected_rows <- corrected_rows %>%
+  mutate(started_at = as.POSIXct(started_at_formatted),
+          ended_at = as.POSIXct(ended_at_formatted))
+
+glimpse(corrected_rows)
+
+```
+
+## **Creacion de una tabla con las columnas corregidas**
+
+```{r}
+corrected_rows <- corrected_rows%>%
+  select(started_at, ended_at)
+
+#combinar y ordenar la tabla ya limpia
+trips_2023_2024 <- merge(
+  trips_2023_2024,
+  corrected_rows,
+  by = c("started_at", "ended_at"),
+  all.x = TRUE,
+  drop = TRUE
+)
+```
+
+## **Seleccionar solo las columnas que nos serviran para el analisis y comprobar el formato de las columnas**
+
+```{r}
+final_table <- trips_2023_2024%>%
+  select(ride_id, rideable_type, started_at, ended_at, trip_duration, member_casual)
+
+glimpse(final_table)
+```
+
+## **Filtrar para eliminar las filas con una duracion de viaje de un minuto o menos y creacion de columnas de tiempo en horas**
+
+```{r}
+#filtrar datos de duracion del viaje
+final_table <- final_table %>%
+  filter(trip_duration > 60)
+
+#Convertir trip_duration de segundos a minutos
+final_table$trip_duration <- final_table$trip_duration / 60
+
+
+#Creacion de una nueva columna llamada week 
+final_table$week <- wday(final_table$started_at, label = TRUE)
+
+#creacion de una columna con el mes y año correspondiente
+final_table <- final_table %>%
+  mutate(month_trip = format(started_at, "%B %Y"))
+
+#Dejar solo dos decimales a la columna de duracion del viaje en minutos
+final_table$trip_duration <- format(final_table$trip_duration, digits = 3)
+
+#Si hay valores de texto, convertir a numérico
+final_table$trip_duration <- as.numeric(final_table$trip_duration)
+
+#Crear columna de tiempo de duracion en horas
+final_table$trip_duration_hours <- (as.numeric(final_table$ended_at) - as.numeric(final_table$started_at)) / 3600
+```
+
+# **Analisis**
+
+## **Contar cantidad de viejes totales de miembros y usuarios casuales**
+
+```{r}
+member_casual_counts <- final_table %>%
+  count(member_casual)
+
+#Contar miembros y usuarios casuales, numero de viajes realizados durante el año
+member_casual_counts <- rename(member_casual_counts, member_casual = member_casual, total_trips = n) %>%
+  arrange(member_casual)
+
+porcentaje <- member_casual_counts %>%
+  group_by(member_casual) %>%
+  summarise(total_trips = sum(total_trips)) %>%
+  mutate(porcentaje = total_trips / sum(total_trips) * 100)
+print(member_casual_counts)
+```
+  Se puede observar en la tabla member_casual_counts, que la diferencia de viajes totales al año es de 35.63% para los usuarios casuales y 64.36% para los miembros. Ver gráfico 1.
+
+## **Cantidad de viajes por tipo de bicicleta**
+
+```{r}
+types_cyclist <- final_table %>%
+  group_by(rideable_type, member_casual) %>%
+summarise(n_trips = n()) #Contar el número de viajes
+print(types_cyclist)
+```
+En este cálculo se puede observar que los miembros tienen una leve preferencia por las bicicletas clásicas por encima de las eléctricas y un uso nulo de las docked bike. Por el contrario, los usuarios casuales utilizan más las eléctricas en lugar de las clásicas, y una pequeña parte usa las docked bike. Ver gráfico 2.
+
+## **viajes a lo largo del año**
+
+```{r}
+annual_trips <- final_table %>%
+  group_by(member_casual, month_trip) %>%
+  summarise(number_trips = n()) #Contar el número de viajes
+
+#Convertir a formato de fecha
+annual_trips$month_trip <- as.Date(paste("01", annual_trips$month_trip), format = "%d %B %Y")
+
+annual_trips<- annual_trips %>%
+  arrange(month_trip) #Ordenar por fecha
+print(annual_trips)
+```
+  En este cálculo se nota que junio, julio, agosto, septiembre y octubre son los meses con mayores tráficos de ciclistas y va descendiendo poco a poco.  Agosto es el mes con mayor tráfico, es probable que esto sea debido a las condiciones climáticas ya que estos son los meses de verano e inicio de primavera que también suelen coincidir con los periodos vacacionales de las instituciones educativas por lo que los usuarios que tienen hijos prefieren estos meses. Acá se sigue notando la diferencia de uso de bicicletas, que el promedio sigue siendo mayor en usuarios miembros. Ver gráfico 3.
+
+## **Viajes promedio por semana**
+
+```{r}
+final_table$weekday <- weekdays(as.Date(final_table$started_at))
+
+#Agrupar por día de la semana y tipo de usuario, y calcular el número de viajes
+trips_weekly <- final_table %>%
+  group_by(weekday, member_casual) %>%
+  summarize(total_trips = n())
+
+dias_semana <- c("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
+
+#Convertir la columna a factor con los niveles especificados
+trips_weekly$weekday <- factor(trips_weekly$weekday, levels = dias_semana, ordered = TRUE)
+
+#Ordenar la columna
+trips_weekly <- trips_weekly[order(trips_weekly$weekday), ]
+print(trips_weekly)
+```
+## **Calcular el promedio de viajes en horas por semana**
+
+```{r}
+promedio_semanal <- final_table %>%
+  group_by(weekday, member_casual) %>%
+  summarise(promedio_horas = mean(trip_duration_hours, na.rm = TRUE))
+
+#Convertir la columna a factor con los niveles especificados
+promedio_semanal$weekday <- factor(promedio_semanal$weekday, levels = dias_semana, ordered = TRUE)
+
+#Ordenar la columna
+promedio_semanal <- promedio_semanal[order(promedio_semanal$weekday), ]
+print(promedio_semanal)
+```
+  Los subscriptores en promedio utilizan más la bicicleta durante los días entre semana, mientras los clientes ocasiones prefieren los fines de semana, su uso entre semana es menor. Esto combinado con el tiempo promedio de uso para los subscriptores, 20 minutos, indica que ellos usan la bicicleta como medio de transporte principalmente. De lado contrario para los clientes ocasionales los datos indican que ellos están más orientados a usar la bicicleta de manera recreativa, pues su tiempo promedio de uso es de 40 minutos. Observar grafico 4 y 5.
+  
+## **Calcular el promedio general de uso diario en minutos por tipo de usuario**
+
+```{r}
+promedio_general_diario <- final_table%>%
+  group_by(member_casual) %>%
+  summarise(promedio_minutos = mean(trip_duration, na.rm = TRUE), .groups = "drop")
+
+porcentaje_diario <- promedio_general_diario %>%
+  group_by(member_casual) %>%
+  summarise(promedio_minutos = sum(promedio_minutos)) %>%
+  mutate(porcentaje_diario = promedio_minutos / sum(promedio_minutos) * 100)
+print(promedio_general_diario)
+
+```
+  Los usuarios casuales por día, en promedio tienden a usar las bicicletas por un periodo de tiempo mayor, prácticamente el doble que los usuarios miembros, esto podría deberse a que lo hacen mas de forma recreacional que como medio de transporte. Ver grafico 6.
+
+## **Instalar ggplot2**
+
+install.packages("ggplot2")
+
+```{r}
+library(ggplot2)
+```
+
+# **Graficos**
+
+## **Grafico 1**
+
+```{r}
+ggplot(member_casual_counts, aes(x = member_casual, y = total_trips, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge")+
+  labs(title = "Viajes Totales por Cada Tipo de Miembro", x = "Tipo de Miembro", y = "Numero de Viajes") +
+  theme_minimal()
+```
+
+## **Grafico 2**
+
+```{r}
+ggplot(types_cyclist, aes(x = rideable_type, y = n_trips, fill = rideable_type)) +  
+  geom_bar(stat = "identity", position = "dodge")+
+  facet_wrap(~member_casual) +
+  labs(title = "Numero de Viajes por Tipo de Bicicleta", x = "Tipo de Bicicleta", y = "Numero de viajes") +
+  theme_minimal()
+```
+
+## **Grafico 3**
+
+```{r}
+ggplot(annual_trips, aes(x = month_trip, y = number_trips, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Cantidad de viajes por mes y tipo de usuario",
+       x = "Mes",
+       y = "Cantidad de viajes",
+       fill = "Tipo de Usuario") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## **Grafico 4**
+
+```{r}
+ggplot(trips_weekly, aes(x = weekday, y = total_trips, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Número de viajes por día de la semana y tipo de usuario",
+       x = "Día de la semana",
+       y = "Número de viajes",
+       fill = "Tipo de usuario") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## **grafico 5**
+
+```{r}
+ggplot(promedio_semanal, aes(x = weekday, y = promedio_horas, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Promedio de horas por día de la semana y tipo de usuario",
+       x = "Día de la semana",
+       y = "Tiempo en Horas",
+       fill = "Tipo de usuario") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## **Grafico 6**
+
+```{r}
+ggplot(promedio_general_diario, aes(x = member_casual, y = promedio_minutos, fill = member_casual)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Promedio general de uso diario de bicicletas por tipo de usuario (en minutos)",
+       x = "Tipo de usuario",
+       y = "Promedio de minutos de uso",
+       fill = "Tipo de usuario") +
+  theme_minimal()
+```
+
+# **Compartir**
+
+  Tomando en cuenta la tarea empresaria de crear una estrategia comercial a esta pregunta : **¿En qué se diferencian los socios anuales y los ciclistas ocasionales con respecto al uso de las bicicletas de Cyclistic?** y la información que hemos obtenido durante la fase de análisis podemos concluir:
+
+  Los clientes ocasionales esta orientado a usar la bicicleta de forma recreativa, principalmente los fines de semana.
+Los cliente con suscripciones anuales utilizan el servicio como medio de transporte diario, principalmente entre semana.
+  En promedio, los ciclistas que son miembros realizan más cantidad de viajes con menos recorrido de tiempo manteniendo un uso medio durante los días de semana y teniendo un menor uso durante los fines de semana.
+  Los ciclistas casuales, pese a no realizar tantos viajes como los miembros, tienen un mayor porcentaje de tiempo invertido en cada viaje, a demas los fines de semana incrementan el uso del servicio.
+
+
+## **Recomendaciones para el Equipo de Marketing**
+
+  Se recomienda lanzar promociones dirigidas a los usuarios casuales, destacando que pueden ahorrar más dinero al contratar una suscripción anual en lugar de utilizar pases diarios, ya que estos últimos suelen ser más costosos. Además, se sugiere crear membresías especiales para los fines de semana, ya que son los días de mayor uso por parte de los usuarios ocasionales. Por último, sería beneficioso incrementar el número de bicicletas eléctricas disponibles, dado que son las más demandadas por este grupo de usuarios
+
