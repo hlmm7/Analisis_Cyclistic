@@ -1,7 +1,7 @@
 # Proyecto de análisis de datos para la empresa  Cyclistic
 
 El objetivo de este análisis es identificar los factores clave qué diferencian a los mienbros ocasionales y los miembros
-anuales en el uso de las bicicletas Cyclistic; para convertir a los ciclistas ocasionales en miembros anuales, utilizando herramientas estadísticas y visualizaciones en R.
+anuales en el uso de las bicicletas Cyclistic, para convertir a los ciclistas ocasionales en miembros anuales, utilizando herramientas estadísticas y visualizaciones en R.
 
 ## Contenido
 - `analisis.Rmd`: Código fuente en R Markdown.
