@@ -22,5 +22,5 @@ anuales en el uso de las bicicletas Cyclistic, para convertir a los ciclistas oc
 (Analisis_Cyclistic/imagenes/Promedio de horas por dia y tipo de usuario.png)
 
 ## Enlace
-[Ver análisis](https://github.com/hlmm7/Analisis_Cyclistic/blob/main/Proyecto_Cyclistic.html)
+[Ver análisis](https://hlmm7.github.io/Analisis_Cyclistic/Proyecto_cyclistic.html)
 
